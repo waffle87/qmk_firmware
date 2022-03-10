@@ -1,0 +1,12 @@
+#pragma once
+#define VENDOR_ID 0xAE7E
+#define PRODUCT_ID 0x7373
+#define DEVICE_VER 0x0001
+#define PRODUCT smoothie split
+#define DIODE_DIRECTION COL2ROW
+#define MATRIX_ROWS 4 * 2
+#define MATRIX_COLS 12
+#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
+#define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
+#define MATRIX_ROW_PINS_MCU { F5, F1, D3, B5 }
+#define MATRIX_COL_PINS_MCU { F7, D2, D4, D6, D7, B4 }
