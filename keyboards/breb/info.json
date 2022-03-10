@@ -1,0 +1,23 @@
+{
+  "keyboard_name": "breb",
+  "processor": "STM32F103",
+  "bootloader": "stm32duino",
+  "matrix_pins": {
+    "direct": [
+      ["B0", "A7"]
+    ]
+  },
+  "usb": {
+    "vid": "0xF103",
+    "pid": "0x9472",
+    "device_version": "1.0.0"
+  },
+  "layouts": {
+    "LAYOUT_smol": {
+      "layout": [
+        {"label": "1", "matrix": [0, 0]},
+        {"label": "2", "matrix": [0, 1]}
+      ]
+    }
+  }
+}
