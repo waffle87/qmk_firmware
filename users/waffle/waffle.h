@@ -2,137 +2,116 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 #include QMK_KEYBOARD_H
-
 #ifdef OLED_ENABLE
 #include "oled.h"
 #endif
-#ifdef POINTING_DEVICE_ENABLE
-void ball_increase_hue(void);
-void ball_decrease_bri(void);
-bool trackball_is_scrolling(void);
-void trackball_set_scrolling(bool scroll);
+
+#ifdef RAW_ENABLE
+#pragma message "check other device's vid/pid"
+typedef struct {
+  uint8_t cpu_temp;
+  uint8_t hour;
+  uint8_t min;
+} user_config;
+user_config user_state;
 #endif
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool rgb_matrix_idle_anim :1;
-  };
-} userspace_config_t;
-
-extern userspace_config_t userspace_config;
-
-typedef struct {
-    uint16_t device_cpi;
-} kb_config_data_t;
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 enum layers {
   _BASE,
-  _LOWER,
-  _RAISE,
   _ADJUST,
+  _LOWER,
+  _RAISE
 };
 
-typedef struct {
-  bool is_press_action;
-  uint8_t state;
-} tap;
-
-enum tapdance_types {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD,
-  DOUBLE_TAP,
-  DOUBLE_HOLD
+enum tapdances {
+  QMK_LINKS,
+  EM_DASH,
+  CBRKT,
+  BRKT,
+  BSLS_PIPE,
+  DEG_0,
+  PLY_NXT_PRV,
+  CLIPST_RAISE
 };
 
-enum custom_tapdances {
-  GCLIPST,
-  QMK,
-  DOCS,
-};
 
-#ifdef TAP_DANCE_ENABLE
-uint8_t cur_dance(qk_tap_dance_state_t *state);
-void gclipst_finished(qk_tap_dance_state_t *state, void *user_data);
-void gclipst_reset(qk_tap_dance_state_t *state, void *user_data);
-void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_doc_finished(qk_tap_dance_state_t *state, void *user_data);
-#endif
-
-enum userspace_custom_keycodes {
-  CP_PSTE = SAFE_RANGE,
-  ROFL,
-#ifdef UNICODEMAP_ENABLE
-  HAP,
+enum custom_keycodes {
+  UPDIR = SAFE_RANGE,
   TABLE1,
   TABLE2,
-  OUT,
-#endif
-#ifdef RANDICT
+  KC_NOMODE,
+  KC_WIDE,
+  KC_SCRIPT,
+  KC_BLOCKS,
+  KC_REGIONAL,
+  KC_AUSSIE,
+  KC_ZALGO,
+  KC_SUPER,
   RWORD,
-#endif
-#ifdef RGB_MATRIX_ENABLE
-  RGB_IDL,
-#endif
-  MAKE,
-  RST_EEP
+  NEW_SAFE_RANGE
 };
 
-#ifdef UNICODEMAP_ENABLE
-enum unicodemap_names {
-  GENSTAR,
-  DEGREE,
-  HAM_SIK
+#ifdef UNICODE_COMMON_ENABLE
+bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
+
+enum unicode_mode {
+  NOMODE,
+  WIDE,
+  SCRIPT,
+  BLOCKS,
+  REGIONAL,
+  AUSSIE,
+  ZALGO,
+  SUPER
 };
 #endif
 
-//---layers---
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
+//---home row mods---
+#define A_ALT LALT_T(KC_A)
+#define S_GUI LGUI_T(KC_S)
+#define D_CTL LCTL_T(KC_D)
+#define F_SFT LSFT_T(KC_F)
+#define J_SFT RSFT_T(KC_J)
+#define K_CTL RCTL_T(KC_K)
+#define L_GUI RGUI_T(KC_L)
+#define CLN_ALT RALT_T(KC_SCLN)
+#define EXM_ALT LALT_T(KC_EXLM)
+#define AT_GUI LGUI_T(KC_AT)
+#define HASH_CTL LCTL_T(KC_HASH)
+#define DLR_SFT LSFT_T(KC_DLR)
+#define AMPR_SFT RSFT_T(KC_AMPR)
+#define ASTR_CTL RCTL_T(KC_ASTR)
+#define LPRN_GUI RGUI_T(KC_LPRN)
+#define RPRN_ALT RALT_T(KC_RPRN)
+//---tapdance---
+#define DEG0 TD(DEG_0)
+#define LINKS TD(QMK_LINKS)
+#define PNP TD(PLY_NXT_PRV)
+#define PSTRSE TD(CLIPST_RAISE)
+//---misc---
+#define H_S UC(0x262D) //☭
+#define STAR UC(0x2605) //★
+#define ESCLWR LT(_LOWER, KC_ESC)
 #define LWRSPC LT(_LOWER, KC_SPC)
 #define RSEBSP LT(_RAISE, KC_BSPC)
-//---general---
-#define SFA SFT_T(KC_A)
-#define SFCLN RSFT_T(KC_SCLN)
-#define SFEXM MT(MOD_LSFT, KC_F23)
-#define SFPRN MT(MOD_RSFT, KC_F24)
-#define ALTQ ALT_T(KC_Q)
-#define ALTP ALT_T(KC_P)
-#define ALT1 ALT_T(KC_1)
-#define ALT0 ALT_T(KC_0)
-#define CTLZ CTL_T(KC_Z)
-#define CTLESC CTL_T(KC_ESC)
-#define CTLSLH CTL_T(KC_SLSH)
-#define CTLDOT CTL_T(KC_DOT)
-#define CTLRGHT CTL_T(KC_RIGHT)
-#define CLIPST C(S(KC_V))
-//---tapdance---
-#define DOCSTD TD(DOCS)
-#define QMKTD TD(QMK)
-#define GCPTD TD(GCLIPST)
-//---unicode---
-#define DEG X(DEGREE)
-#define H_S X(HAM_SIK)
-#define STAR X(GENSTAR)
 
-#define LAYOUT_waffle(...)   LAYOUT_split_3x6_3(__VA_ARGS__)
-#define _BASE1 STAR,    ALTQ, KC_W, KC_E, KC_R, KC_T,          KC_Y, KC_U, KC_I,    KC_O,   ALTP,   ROFL,
-#define _BASE2 QMKTD,   SFA,  KC_S, KC_D, KC_F, KC_G,          KC_H, KC_J, KC_K,    KC_L,   SFCLN,  DEG,
-#define _BASE3 CP_PSTE, CTLZ, KC_X, KC_C, KC_V, KC_B,          KC_N, KC_M, KC_COMM, KC_DOT, CTLSLH, RWORD,
-#define _BASE4                     KC_LGUI, LOWER, KC_SPC, KC_BSPC, RSEBSP, CLIPST
+#define ___BASE1___ KC_Q,  KC_W,  KC_E,  KC_R,  KC_T, KC_Y, KC_U,  KC_I,    KC_O,   KC_P
+#define ___BASE2___ A_ALT, S_GUI, D_CTL, F_SFT, KC_G, KC_H, J_SFT, K_CTL,   L_GUI,  CLN_ALT
+#define ___BASE3___ KC_Z,  KC_X,  KC_C,  KC_V,  KC_B, KC_N, KC_M,  KC_COMM, KC_DOT, KC_SLSH
+#define ___BASE4___ UPDIR, ESCLWR, KC_SPC, KC_BSPC, PSTRSE, PNP
 
-#define _LOWER1 HAP,    ALT1,   KC_2,   KC_3,    KC_4,    KC_5,            KC_6,    KC_7,    KC_8,    KC_9,    ALT0,    MAKE,
-#define _LOWER2 DOCSTD, SFEXM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, SFPRN,   TABLE1,
-#define _LOWER3 OUT,    CTLESC, KC_TAB, KC_CAPS, KC_TILD, KC_GRV,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RCTL, TABLE2,
-#define _LOWER4                              KC_TRNS, KC_TRNS, KC_SPC, KC_VOLU, KC_TRNS, KC_TRNS
+#define ___LOWER1___ KC_1,    KC_2,   KC_3,     KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,     DEG0
+#define ___LOWER2___ EXM_ALT, AT_GUI, HASH_CTL, DLR_SFT, KC_PERC, KC_CIRC, AMPR_SFT, ASTR_CTL, LPRN_GUI, RPRN_ALT
+#define ___LOWER3___ KC_VOLD, KC_TAB, KC_CAPS,  KC_TILD, KC_GRV,  KC_LEFT, KC_DOWN,  KC_UP,    KC_RGHT,  KC_VOLU
+#define ___LOWER4___ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
-#define _RAISE1 RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_IDL, KC_TRNS,       KC_MPRV, KC_MPLY, KC_MNXT, CK_TOGG, CK_RST,  QK_BOOT,
-#define _RAISE2 RGB_MOD,  RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EE_CLR,
-#define _RAISE3 RGB_RMOD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-#define _RAISE4                               KC_TRNS, KC_TRNS, KC_VOLD, KC_BSPC, KC_TRNS, KC_TRNS
+#define ___RAISE1___ RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, KC_NOMODE, KC_SCRIPT, KC_BLOCKS, KC_REGIONAL, QK_MAKE
+#define ___RAISE2___ CK_TOGG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_WIDE,   KC_AUSSIE, KC_ZALGO,  KC_SUPER,    QK_BOOT
+#define ___RAISE3___ KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,     KC_F7,     KC_F8,     KC_F9,       KC_F10
+#define ___RAISE4___ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
-#define _ADJUST1 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST2 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST3 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST4                                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+#define LAYOUT_waffle_3x6(...) LAYOUT_split_3x6_3(__VA_ARGS__)
+#define LAYOUT_waffle_3x5(...) LAYOUT_split_3x5_3(__VA_ARGS__)
+#define LAYOUT_waffle(...)     LAYOUT(__VA_ARGS__)
