@@ -1,26 +1,38 @@
 BOOTMAGIC_ENABLE = yes
 EXTRAKEY_ENABLE = yes
-MOUSEKEY_ENABLE = yes
 NRKO_ENABLE = yes
 COMBO_ENABLE = yes 
-LTO_ENABLE = yes
-UNICODEMAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
+TOP_SYMBOLS = yes
+LTO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
-RANDICT = no
+UNICODE_COMMON = yes
+MOUSEKEY_ENABLE = yes
 MAGIC_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
+DEBOUNCE_TYPE = asym_eager_defer_pk
 
-# User specific files
-SRC += waffle.c pru.c
-
-VPATH += keyboards/gboards
+SRC += waffle.c tapping.c
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += oled.c
+	WPM_ENABLE = yes
 endif
 
-ifeq ($(strip $(RANDICT)), yes)
-	OPT_DEFS += -DRANDICT
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	SRC += color.c
+endif
+
+ifeq ($(strip $(UNICODE_COMMON)), yes)
+	SRC += unicode.c
+endif
+
+ifeq ($(PLATFORM), CHIBIOS)
+	RANDWORD = yes
+	EXTRAFLAGS = -O3
+endif
+
+ifeq ($(strip $(RANDWORD)), yes)
+	OPT_DEFS += -DRANDWORD
 endif
