@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "waffle.h"
 #include "g/keymap_combo.h"
-userspace_config_t userspace_config;
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -38,35 +37,43 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 
 #ifdef TAP_DANCE_ENABLE
 #include "secrets.h"
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
-  if (state->count == 1) {
-    if (state->interrupted || !state->pressed) return SINGLE_TAP;
-    else return SINGLE_HOLD;
-  } else if (state->count == 2) {
-    if (state->pressed) return DOUBLE_HOLD;
-    else return DOUBLE_TAP;
-  } else return 8;
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+  if (state->count == 1)
+    if (state->interrupted || !state->pressed)
+      return SINGLE_TAP;
+    else
+      return SINGLE_HOLD;
+  else if (state->count == 2)
+      return DOUBLE_TAP;
+  else
+   return NONE;
 }
 
-static tap cur_tap_state = {
+static td_tap_t xtap_state = {
   .is_press_action = true,
-  .state = 0
+  .state = NONE
 };
 
 void gclipst_finished(qk_tap_dance_state_t *state, void *user_data) {
-  cur_tap_state.state = cur_dance(state);
-  switch (cur_tap_state.state) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
     case SINGLE_TAP: register_code16(C(S(KC_V))); break;
     case SINGLE_HOLD: register_code(KC_LGUI); break;
+    case DOUBLE_TAP:
+    case NONE:
+      break;
   }
 }
 
 void gclipst_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_tap_state.state) {
+  switch (xtap_state.state) {
     case SINGLE_TAP: unregister_code16(C(S(KC_V))); break;
     case SINGLE_HOLD: unregister_code(KC_LGUI); break;
+    case DOUBLE_TAP:
+    case NONE:
+      break;
   }
-  cur_tap_state.state = 0;
+  xtap_state.state = NONE;
 }
 
 void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -82,17 +89,16 @@ void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_doc_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
+  if (state->count == 1)
     send_string(docstr);
-  } else {
+  else
     send_string(drivstr);
-  }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [GCLIPST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gclipst_finished, gclipst_reset),
   [QMK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qmk_finished, NULL),
-  [DOCS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_doc_finished, NULL),
+  [DOCS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_doc_finished, NULL)
 };
 #endif
 
@@ -104,38 +110,15 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 #endif
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    switch (get_highest_layer(layer_state)) {
-      case _RAISE:
-#if (defined(RGB_LIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-        clockwise ? rgblight_increase_sat() : rgblight_decrease_sat();
-#endif
-        break;
-      case _LOWER:
-        clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
-        break;
-      default:
-        clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
-    }
-  } else if (index == 1) {
-    switch (get_highest_layer(layer_state)) {
-      case _RAISE:
-#if (defined(RGB_LIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-        clockwise ? rgblight_increase_hue() : rgblight_decrease_hue();
-#endif
-      break;
-      case _LOWER:
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE]  = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 #if (defined(POINTING_DEVICE_DRIVER_pimoroni_trackball))
-        clockwise ? ball_increase_hue() : ball_decrease_bri();
+  [_LOWER] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(ball_increase_hue(), ball_decrease_bri())},
 #endif
-        break;
-      default:
-        clockwise ? tap_code_delay(KC_VOLU, 20) : tap_code_delay(KC_VOLD, 20);
-    }
-  }
-  return false;
+#if (defined(RGB_LIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+  [_RAISE] = { ENCODER_CCW_CW(rgblight_increase_sat(), rgblight_decrease_sat()), ENCODER_CCW_CW(rgblight_increase_hue(), rgblight_decrease_hue())}
+#endif
 }
 #endif
 

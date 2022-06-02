@@ -13,53 +13,44 @@ bool trackball_is_scrolling(void);
 void trackball_set_scrolling(bool scroll);
 #endif
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool rgb_matrix_idle_anim :1;
-  };
-} userspace_config_t;
-
-extern userspace_config_t userspace_config;
-
 typedef struct {
-    uint16_t device_cpi;
+  uint16_t device_cpi;
 } kb_config_data_t;
 
 enum layers {
   _BASE,
   _LOWER,
   _RAISE,
-  _ADJUST,
+  _ADJUST
 };
 
-typedef struct {
-  bool is_press_action;
-  uint8_t state;
-} tap;
-
-enum tapdance_types {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD,
-  DOUBLE_TAP,
-  DOUBLE_HOLD
-};
-
-enum custom_tapdances {
+enum tapdances {
   GCLIPST,
   QMK,
-  DOCS,
+  DOCS
 };
 
 #ifdef TAP_DANCE_ENABLE
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+typedef enum {
+  NONE,
+  SINGLE_TAP,
+  SINGLE_HOLD,
+  DOUBLE_TAP
+} td_state_t;
+
+typedef struct {
+  bool is_press_action;
+  td_state_t state;
+} td_tap_t;
+
+td_state_t cur_dance(qk_tap_dance_state_t *state);
 void gclipst_finished(qk_tap_dance_state_t *state, void *user_data);
 void gclipst_reset(qk_tap_dance_state_t *state, void *user_data);
 void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data);
 void dance_doc_finished(qk_tap_dance_state_t *state, void *user_data);
 #endif
 
-enum userspace_custom_keycodes {
+enum custom_keycodes {
   CP_PSTE = SAFE_RANGE,
   ROFL,
 #ifdef UNICODEMAP_ENABLE

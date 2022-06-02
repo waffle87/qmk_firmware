@@ -38,20 +38,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MT(MOD_LSFT, KC_F23):
       if (record->tap.count > 0) {
-        if (record->event.pressed) {
+        if (record->event.pressed)
           register_code16(KC_EXLM);
-        } else {
+        else
           unregister_code16(KC_EXLM);
-        }
       }
       break;
     case MT(MOD_RSFT, KC_F24):
       if (record->tap.count > 0) {
-        if (record->event.pressed) {
+        if (record->event.pressed)
           register_code16(KC_RPRN);
-        } else {
+        else
           unregister_code16(KC_RPRN);
-        }
       }
       break;
 #ifdef UNICODEMAP_ENABLE
@@ -77,17 +75,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 #endif
-#ifdef RGB_MATRIX_ENABLE
-    case RGB_IDL:
-      if (record->event.pressed) {
-        userspace_config.rgb_matrix_idle_anim ^= 1;
-        dprintf("rgb matrix idle animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-        eeconfig_update_user(userspace_config.raw);
-        if (userspace_config.rgb_matrix_idle_anim)
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-      }
-      break;
-#endif
     case MAKE:
       if (!record->event.pressed) {
         SEND_STRING("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP
@@ -95,7 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         " -bl dfu"
 #elif BOOTLOADER_CATERINA
         " -bl avrdude"
-#elif BOOTLOADER_STM32DUINO
+#elif BOOTLOADER_STM32_DFU || BOOTLOADER_STM32DUINO
         " -bl dfu-util"
 #endif
         SS_TAP(X_ENT));
