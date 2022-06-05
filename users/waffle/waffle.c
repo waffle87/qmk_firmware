@@ -113,13 +113,10 @@ const uint32_t PROGMEM unicode_map[] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [_BASE]  = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-#if (defined(POINTING_DEVICE_DRIVER_pimoroni_trackball))
-  [_LOWER] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(ball_increase_hue(), ball_decrease_bri())},
-#endif
 #if (defined(RGB_LIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-  [_RAISE] = { ENCODER_CCW_CW(rgblight_increase_sat(), rgblight_decrease_sat()), ENCODER_CCW_CW(rgblight_increase_hue(), rgblight_decrease_hue())}
+  [_RAISE] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI), ENCODER_CCW_CW(RGB_SAD, RGB_SAI) }
 #endif
-}
+};
 #endif
 
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball

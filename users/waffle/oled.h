@@ -7,9 +7,6 @@
 void render_bongo(void);
 void render_kirby(void);
 void render_felix(void);
-void render_anim_num(void);
-void render_anim_sym(void);
-void render_anim_sys(void);
 void render_wpm(void);
 void felix_frame(char const action[][96]);
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);

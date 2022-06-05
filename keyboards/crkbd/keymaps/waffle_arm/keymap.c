@@ -26,18 +26,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 #ifdef AUDIO_ENABLE
-void keyboard_pre_init_kb(void) { //thank you to @sigprof for this
+void keyboard_pre_init_user(void) { //thank you to @sigprof for this
     // Set audio pins to analog mode
     palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
     palSetLineMode(B1, PAL_MODE_INPUT_ANALOG);
 }
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     // Enable OPAMP1 as A5 → B1 follower
     OPAMP3->CSR = OPAMP3_CSR_VMSEL_1 | OPAMP3_CSR_VMSEL_0 | OPAMP3_CSR_VPSEL_0 | OPAMP3_CSR_OPAMP3EN;
 }
 #endif //audio
-#ifdef RGB_MATRIX_ENABLE
+#ifdef POINTING_DEVICE_ENABLE
 extern LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 void rgb_matrix_indicators_user(void) {
   pimoroni_trackball_set_rgbw(rgb_matrix_ws2812_array[29].r, rgb_matrix_ws2812_array[29].g, rgb_matrix_ws2812_array[29].b, 0);

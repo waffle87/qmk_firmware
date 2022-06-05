@@ -62,9 +62,6 @@ enum custom_keycodes {
 #ifdef RANDICT
   RWORD,
 #endif
-#ifdef RGB_MATRIX_ENABLE
-  RGB_IDL,
-#endif
   MAKE,
   RST_EEP
 };
@@ -118,7 +115,7 @@ enum unicodemap_names {
 #define _LOWER3 OUT,    CTLESC, KC_TAB, KC_CAPS, KC_TILD, KC_GRV,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RCTL, TABLE2,
 #define _LOWER4                              KC_TRNS, KC_TRNS, KC_SPC, KC_VOLU, KC_TRNS, KC_TRNS
 
-#define _RAISE1 RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_IDL, KC_TRNS,       KC_MPRV, KC_MPLY, KC_MNXT, CK_TOGG, CK_RST,  QK_BOOT,
+#define _RAISE1 RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_TRNS,       KC_MPRV, KC_MPLY, KC_MNXT, CK_TOGG, CK_RST,  QK_BOOT,
 #define _RAISE2 RGB_MOD,  RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EE_CLR,
 #define _RAISE3 RGB_RMOD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
 #define _RAISE4                               KC_TRNS, KC_TRNS, KC_VOLD, KC_BSPC, KC_TRNS, KC_TRNS

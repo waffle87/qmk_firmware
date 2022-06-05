@@ -200,7 +200,7 @@ void render_felix(void) {
 }
 #endif
 
-#ifdef BONGO
+#ifdef BONGO_CAT
 void render_bongo(void) { //solid-filled bongo cat animation
   uint8_t current_idle_frame = 0;
   void animation_phase(void) {
