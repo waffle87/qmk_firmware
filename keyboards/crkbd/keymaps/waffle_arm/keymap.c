@@ -60,3 +60,10 @@ bool oled_task_user(void) {
   return false;
 }
 #endif //oled
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE]  = { { KC_MPRV, KC_MNXT }, { KC_VOLD, KC_VOLU } },
+  [_LOWER] = { { RGB_HUD, RGB_HUI }, { RGB_SAD, RGB_SAI } },
+  [_RAISE] = { { KC_LEFT, C(KC_RGHT) }, { C(S(KC_TAB)), C(KC_TAB) } }
+};
+#endif //encoder map

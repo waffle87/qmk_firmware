@@ -390,6 +390,7 @@ void render_main(void) {
 void render_secondary(void) {
   switch (get_highest_layer(layer_state)) {
     case _LOWER:
+#ifdef LAYER_ANIM
       render_anim_num();
       break;
     case _RAISE:
@@ -397,9 +398,9 @@ void render_secondary(void) {
       break;
     case _ADJUST:
       render_anim_sys();
+#endif
       break;
     default:
       render_bongo();
-      break;
   }
 }

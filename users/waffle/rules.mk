@@ -5,10 +5,10 @@ COMBO_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+MOUSEKEY_ENABLE = no
 MAGIC_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-MOUSEKEY_ENABLE = no
 
 # User specific files
 SRC += waffle.c pru.c
@@ -23,7 +23,7 @@ endif
 ifeq ($(PLATFORM),CHIBIOS)
 	LTO_ENABLE = no
 	RANDICT = yes
-	CFLAGS = -O3
+	EXTRAFLAGS = -O3
 else
 	LTO_ENABLE = yes
 endif

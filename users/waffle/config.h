@@ -25,7 +25,7 @@
 
 #ifdef OLED_ENABLE
 #    define OLED_TIMEOUT 600000
-#    define OLED_FONT_H "users/waffle/oledfonts.c"
+#    define OLED_FONT_H "users/waffle/oledfont.h"
 #    define OLED_UPDATE_INTERVAL 100
 #endif
 

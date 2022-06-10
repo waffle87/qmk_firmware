@@ -22,7 +22,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
-#ifdef RGB_LIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
   rgblight_enable_noeeprom();
   rgblight_sethsv_noeeprom(HSV_CYAN);
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -110,21 +110,11 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 #endif
 
-#ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-  [_BASE]  = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-#if (defined(RGB_LIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-  [_RAISE] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI), ENCODER_CCW_CW(RGB_SAD, RGB_SAI) }
-#endif
-};
-#endif
-
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
 uint8_t white = 0;
 uint8_t red = 255;
 uint8_t green = 0;
 uint8_t blue = 0;
-static bool scrolling = false;
 
 void ball_increase_hue(void){
   if (red != 255 && green != 255 && blue != 255) red = 255;
@@ -143,17 +133,26 @@ void ball_decrease_bri(void){
   if (blue > 0) blue -= 15;
   pimoroni_trackball_set_rgbw(red, green, blue, white);
 }
+#endif
 
+#ifdef POINTING_DEVICE_ENABLE
+static bool scrolling = false;
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _LOWER:
       scrolling = true;
+      pointing_device_set_cpi(64);
+#ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
       pimoroni_trackball_set_cpi(0.1);
+#endif
       break;
     default:
       if (scrolling) {
         scrolling = false;
+        pointing_device_set_cpi(1024);
+#ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
         pimoroni_trackball_set_cpi(1);
+#endif
       }
       break;
   }
