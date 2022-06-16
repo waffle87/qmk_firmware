@@ -63,7 +63,8 @@ enum custom_keycodes {
   RWORD,
 #endif
   MAKE,
-  RST_EEP
+  RST_EEP,
+  NEW_SAFE_RANGE
 };
 
 #ifdef UNICODEMAP_ENABLE

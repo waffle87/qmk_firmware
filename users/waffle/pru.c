@@ -33,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     "LOL===__            \\ \n"
                     " L      \\___ ___ ___ ]\n"
                     "           I   I\n"
-                    "         ----------/```"SS_TAP(X_ENT));
+                    "         ----------/```");
       }
       break;
     case MT(MOD_LSFT, KC_F23):

@@ -5,15 +5,14 @@ COMBO_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+TOP_SYMBOLS = yes
 MOUSEKEY_ENABLE = no
 MAGIC_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
+DEBOUNCE_TYPE = asym_eager_defer_pk
 
-# User specific files
 SRC += waffle.c pru.c
-
-VPATH += keyboards/gboards
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += oled.c

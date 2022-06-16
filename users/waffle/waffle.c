@@ -1,7 +1,7 @@
 // Copyright 2022 jack (@waffle87)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "waffle.h"
-#include "g/keymap_combo.h"
+#include "combos.h"
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
