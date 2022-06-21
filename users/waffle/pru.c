@@ -75,20 +75,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 #endif
-    case MAKE:
-      if (!record->event.pressed) {
-        SEND_STRING("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP
-#ifdef BOOTLOADER_DFU
-        " -bl dfu"
-#elif BOOTLOADER_CATERINA
-        " -bl avrdude"
-#elif BOOTLOADER_STM32_DFU || BOOTLOADER_STM32DUINO
-        " -bl dfu-util"
-#endif
-        SS_TAP(X_ENT));
-        reset_keyboard();
-      }
-      break;
     case RST_EEP:
       if (record->event.pressed) {
         eeconfig_init();
