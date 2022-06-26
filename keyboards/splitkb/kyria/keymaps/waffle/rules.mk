@@ -1,3 +1,0 @@
-OLED_ENABLE = yes
-POINTING_DEVICE_ENABLE = no
-POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
