@@ -36,7 +36,7 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 }
 
 #ifdef TAP_DANCE_ENABLE
-#include "strings.h"
+#include "secrets.h"
 td_state_t cur_dance(qk_tap_dance_state_t *state) {
   if (state->count == 1)
     if (state->interrupted || !state->pressed)
