@@ -1,5 +1,4 @@
 MCU = RP2040
-#BOARD = GENERIC_PROMICRO_RP2040 #uncomment if not using blok
 BOOTLOADER = rp2040
 WS2812_DRIVER = vendor
 SERIAL_DRIVER = vendor

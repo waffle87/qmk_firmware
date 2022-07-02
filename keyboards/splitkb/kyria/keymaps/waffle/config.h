@@ -21,17 +21,11 @@
 #define SERIAL_USART_TX_PIN GP1
 #define RGB_DI_PIN GP0
 #define SPLIT_HAND_MATRIX_GRID GP7, GP20
-/*
- * blok uses GPIO16/17 for "standard" i2c pins, differing from what's
- * found in /platforms/chibios/boards/GENERIC_PROMICRO_RP2040/configs/config.h
- * remove following 3 lines if not using blok
- */
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP16
 #define I2C1_SCL_PIN GP17
-#define SPLIT_POINTING_ENABLE
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
+#define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_ANIMATIONS
