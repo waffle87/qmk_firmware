@@ -6,6 +6,7 @@
 
 blok uses GPIO16/17 for "standard" I2C pins, differing from what's found in [`/platforms/chibios/boards/GENERIC_PROMICRO_RP2040/configs/config.h`](https://github.com/qmk/qmk_firmware/blob/develop/platforms/chibios/boards/GENERIC_PROMICRO_RP2040/configs/config.h#L6-#L20).
 this means the following changes are required if using blok:
+
 `config.h`
 ```c
 #define I2C_DRIVER I2CD1
@@ -27,7 +28,3 @@ from there, wired trackpad directly to oled header pins on pcb. looks a bit iffy
 ![trackpad wiring](https://i.imgur.com/tvLVEe0.jpeg)
 
 * [pucks](https://splitkb.com/collections/keyboard-parts/products/tenting-puck) and [tripods](https://www.amazon.com/Manfrotto-MP3-BK-Large-Pocket-Support/dp/B00HCAB8MU) for tenting-puck
-
-i spent quite some time trying to find ideal tripods for tenting, that weren't too costly.
-some decent looking options were [joby micro stand](https://www.amazon.com/gp/product/B01MTXTTEB) or [tripod](https://www.amazon.com/gp/product/B07PGDDY8J) w/ [ball head mount](https://www.amazon.com/gp/product/B06XKW7V14).
-ultimately ended up going with the manfrotto pocket tripod linked above, which seems to be the best choice for keyboard tenting.
