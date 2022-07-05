@@ -3,6 +3,7 @@
 #define PRODUCT protorne
 #define LAYER_ANIM
 #define BONGO_CAT
+#define FELIX_DOG
 #undef RGB_DI_PIN
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_DI_PIN B5

@@ -102,6 +102,33 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
+#if !defined (ENCODER_MAP_ENABLE) && defined (ENCODER_ENABLE)
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) {
+    switch (get_highest_layer(layer_state)) {
+      case _LOWER:
+#if defined (RGBLIGHT_ENABLE) || defined (RGB_MATRIX_ENABLE)
+        clockwise ? rgblight_increase_hue() : rgblight_decrease_hue();
+#endif
+        break;
+      default:
+        clockwise ? tap_code_delay(KC_VOLU, 20) : tap_code_delay(KC_VOLD, 20);
+    }
+  } else if (index == 1) {
+    switch (get_highest_layer(layer_state)) {
+      case _LOWER:
+#if defined (RGBLIGHT_ENABLE) || defined (RGB_MATRIX_ENABLE)
+        clockwise ? rgblight_increase_sat() : rgblight_decrease_sat();
+#endif
+      break;
+      default:
+        clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
+    }
+  }
+  return false;
+}
+#endif
+
 #ifdef UNICODEMAP_ENABLE
 const uint32_t PROGMEM unicode_map[] = {
   [GENSTAR] = 0x2605,
@@ -116,7 +143,7 @@ uint8_t red = 255;
 uint8_t green = 0;
 uint8_t blue = 0;
 
-void ball_increase_hue(void){
+void trackball_hue(void) {
   if (red != 255 && green != 255 && blue != 255) red = 255;
   if (red == 255 && green < 255 && blue == 0) green += 15;
   else if (green == 255 && blue == 0 && red > 0) red -= 15;
@@ -124,13 +151,6 @@ void ball_increase_hue(void){
   else if (blue == 255 && green > 0 && red == 0) green -= 15;
   else if (green == 0 && blue == 255 && red < 255) red += 15;
   else if (green == 0 && blue > 0 && red == 255) blue -= 15;
-  pimoroni_trackball_set_rgbw(red, green, blue, white);
-}
-
-void ball_decrease_bri(void){
-  if (green > 0) green -= 15;
-  if (red > 0) red -= 15;
-  if (blue > 0) blue -= 15;
   pimoroni_trackball_set_rgbw(red, green, blue, white);
 }
 #endif

@@ -13,10 +13,9 @@
     "device_version": "1.0.0"
   },
   "layouts": {
-    "LAYOUT_smol": {
+    "LAYOUT_ortho_1x1": {
       "layout": [
-        {"label": "1", "matrix": [0, 0]},
-        {"label": "2", "matrix": [0, 1]}
+        {"matrix": [0, 0]}
       ]
     }
   }

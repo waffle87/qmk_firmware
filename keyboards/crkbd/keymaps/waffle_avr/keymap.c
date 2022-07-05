@@ -17,12 +17,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _RAISE2
     _RAISE3
     _RAISE4
-  ),
-  [_ADJUST] = LAYOUT_waffle(
-    _ADJUST1
-    _ADJUST2
-    _ADJUST3
-    _ADJUST4
   )
 };
 

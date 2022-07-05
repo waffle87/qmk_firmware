@@ -13,7 +13,8 @@ bool random_word(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
-  process_record_user_oled(keycode, record);
+  if (record->event.pressed)
+    add_keylog(keycode);
 #endif
   switch (keycode) {
     case CP_PSTE:

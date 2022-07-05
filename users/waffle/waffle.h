@@ -2,20 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 #include QMK_KEYBOARD_H
-
 #ifdef OLED_ENABLE
 #include "oled.h"
 #endif
-#ifdef POINTING_DEVICE_ENABLE
-void ball_increase_hue(void);
-void ball_decrease_bri(void);
-bool trackball_is_scrolling(void);
-void trackball_set_scrolling(bool scroll);
-#endif
 
-typedef struct {
-  uint16_t device_cpi;
-} kb_config_data_t;
+void trackball_hue(void);
 
 enum layers {
   _BASE,
@@ -77,7 +68,6 @@ enum unicodemap_names {
 //---layers---
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
 #define LWRSPC LT(_LOWER, KC_SPC)
 #define RSEBSP LT(_RAISE, KC_BSPC)
 //---general---
@@ -119,8 +109,3 @@ enum unicodemap_names {
 #define _RAISE2 RGB_MOD,  RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EE_CLR,
 #define _RAISE3 RGB_RMOD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
 #define _RAISE4                               KC_TRNS, KC_TRNS, KC_VOLD, KC_BSPC, KC_TRNS, KC_TRNS
-
-#define _ADJUST1 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST2 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST3 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#define _ADJUST4                                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
