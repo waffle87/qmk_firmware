@@ -18,7 +18,8 @@ enum layers {
 enum tapdances {
   GCLIPST,
   QMK,
-  DOCS
+  DOCS,
+  EM_DASH
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -37,18 +38,17 @@ typedef struct {
 td_state_t cur_dance(qk_tap_dance_state_t *state);
 void gclipst_finished(qk_tap_dance_state_t *state, void *user_data);
 void gclipst_reset(qk_tap_dance_state_t *state, void *user_data);
-void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_doc_finished(qk_tap_dance_state_t *state, void *user_data);
+void qmk_dance(qk_tap_dance_state_t *state, void *user_data);
+void doc_dance(qk_tap_dance_state_t *state, void *user_data);
+void dash_dance(qk_tap_dance_state_t *state, void *user_data);
 #endif
 
 enum custom_keycodes {
   CP_PSTE = SAFE_RANGE,
   ROFL,
 #ifdef UNICODEMAP_ENABLE
-  HAP,
   TABLE1,
   TABLE2,
-  OUT,
 #endif
 #ifdef RANDICT
   RWORD,
@@ -100,9 +100,9 @@ enum unicodemap_names {
 #define _BASE3 CP_PSTE, CTLZ, KC_X, KC_C, KC_V, KC_B,          KC_N, KC_M, KC_COMM, KC_DOT, CTLSLH, RWORD,
 #define _BASE4                     KC_LGUI, LOWER, KC_SPC, KC_BSPC, RSEBSP, CLIPST
 
-#define _LOWER1 HAP,    ALT1,   KC_2,   KC_3,    KC_4,    KC_5,            KC_6,    KC_7,    KC_8,    KC_9,    ALT0,    QK_MAKE,
-#define _LOWER2 DOCSTD, SFEXM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, SFPRN,   TABLE1,
-#define _LOWER3 OUT,    CTLESC, KC_TAB, KC_CAPS, KC_TILD, KC_GRV,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RCTL, TABLE2,
+#define _LOWER1 KC_TRNS, ALT1,   KC_2,   KC_3,    KC_4,    KC_5,            KC_6,    KC_7,    KC_8,    KC_9,    ALT0,    QK_MAKE,
+#define _LOWER2 DOCSTD,  SFEXM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, SFPRN,   TABLE1,
+#define _LOWER3 H_S,     CTLESC, KC_TAB, KC_CAPS, KC_TILD, KC_GRV,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RCTL, TABLE2,
 #define _LOWER4                              KC_TRNS, KC_TRNS, KC_SPC, KC_VOLU, KC_TRNS, KC_TRNS
 
 #define _RAISE1 RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_TRNS,       KC_MPRV, KC_MPLY, KC_MNXT, CK_TOGG, CK_RST,  QK_BOOT,

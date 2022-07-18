@@ -76,7 +76,7 @@ void gclipst_reset(qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = NONE;
 }
 
-void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data) {
+void qmk_dance(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     tap_code16(C(KC_T));
     send_string(qmkstr);
@@ -88,17 +88,25 @@ void dance_qmk_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_doc_finished(qk_tap_dance_state_t *state, void *user_data) {
+void doc_dance(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
     send_string(docstr);
   else
     send_string(drivstr);
 }
 
+void dash_dance(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1)
+    tap_code(KC_MINS);
+  else
+    register_unicode(0x2014);
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [GCLIPST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gclipst_finished, gclipst_reset),
-  [QMK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qmk_finished, NULL),
-  [DOCS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_doc_finished, NULL)
+  [QMK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, qmk_dance, NULL),
+  [DOCS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, doc_dance, NULL),
+  [EM_DASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_dance, NULL)
 };
 #endif
 
@@ -138,10 +146,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #endif
 
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
-uint8_t white = 0;
-uint8_t red = 255;
-uint8_t green = 0;
-uint8_t blue = 0;
+uint8_t red = 255, green = 0, blue = 0;
 
 void trackball_hue(void) {
   if (red != 255 && green != 255 && blue != 255) red = 255;
@@ -151,7 +156,7 @@ void trackball_hue(void) {
   else if (blue == 255 && green > 0 && red == 0) green -= 15;
   else if (green == 0 && blue == 255 && red < 255) red += 15;
   else if (green == 0 && blue > 0 && red == 255) blue -= 15;
-  pimoroni_trackball_set_rgbw(red, green, blue, white);
+  pimoroni_trackball_set_rgbw(red, green, blue, 0);
 }
 #endif
 

@@ -33,7 +33,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 bool oled_task_user(void) {
   if (is_keyboard_master())
-    render_layer_anim();
+    layer_anim();
   else
     render_wpm(0);
   return false;
