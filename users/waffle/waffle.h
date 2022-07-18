@@ -62,7 +62,6 @@ enum unicode_mode {
 enum custom_keycodes {
   CP_PSTE = SAFE_RANGE,
   ROFL,
-#ifdef UNICODE_COMMON_ENABLE
   TABLE1,
   TABLE2,
   KC_NOMODE,
@@ -73,10 +72,7 @@ enum custom_keycodes {
   KC_AUSSIE,
   KC_ZALGO,
   KC_SUPER,
-#endif
-#ifdef RANDICT
   RWORD,
-#endif
   RST_EEP,
   NEW_SAFE_RANGE
 };
@@ -87,19 +83,19 @@ enum custom_keycodes {
 #define LWRSPC LT(_LOWER, KC_SPC)
 #define RSEBSP LT(_RAISE, KC_BSPC)
 //---general---
-#define SFA SFT_T(KC_A)
-#define SFCLN SFT_T(KC_SCLN)
-#define SFEXM MT(MOD_LSFT, KC_F23)
-#define SFPRN MT(MOD_RSFT, KC_F24)
-#define ALTQ ALT_T(KC_Q)
-#define ALTP ALT_T(KC_P)
-#define ALT1 ALT_T(KC_1)
-#define ALT0 ALT_T(KC_0)
-#define CTLZ CTL_T(KC_Z)
-#define CTLESC CTL_T(KC_ESC)
-#define CTLSLH CTL_T(KC_SLSH)
-#define CTLDOT CTL_T(KC_DOT)
-#define CTLRGHT CTL_T(KC_RIGHT)
+#define SFA LSFT_T(KC_A)
+#define SFCLN RSFT_T(KC_SCLN)
+#define SFEXM LSFT_T(KC_F23)
+#define SFPRN RSFT_T(KC_F24)
+#define ALTQ LALT_T(KC_Q)
+#define ALTP RALT_T(KC_P)
+#define ALT1 LALT_T(KC_1)
+#define ALT0 RALT_T(KC_0)
+#define CTLZ LCTL_T(KC_Z)
+#define CTLESC LCTL_T(KC_ESC)
+#define CTLSLH RCTL_T(KC_SLSH)
+#define CTLDOT RCTL_T(KC_DOT)
+#define CTLRGHT RCTL_T(KC_RIGHT)
 #define CLIPST C(S(KC_V))
 //---tapdance---
 #define DOCSTD TD(DOCS)

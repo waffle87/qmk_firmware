@@ -1,6 +1,7 @@
 // Copyright 2022 jack (@waffle87)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "waffle.h"
+
 uint8_t typing_mode = NOMODE;
 typedef uint32_t (*translator_function_t)(bool is_shifted, uint32_t keycode);
 
@@ -124,7 +125,7 @@ DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_super,
   0x2071, // i
   0x02B2, // j
   0x1D4F, // k
-  0x1D4F, // l
+  0x02E1, // l
   0x1D50, // m
   0x207F, // n
   0x1D52, // o
@@ -217,6 +218,10 @@ bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case TABLE1:
+    if (record->event.pressed) { send_unicode_string("┬──┬ ノ( ゜-゜ノ)"); } break;
+  case TABLE2:
+    if (record->event.pressed) { send_unicode_string("(╯°□°)╯︵┻━┻"); } break;
   case KC_NOMODE ... KC_SUPER:
     if (record->event.pressed) {
       if (typing_mode != keycode - KC_NOMODE)

@@ -1,5 +1,4 @@
 #pragma once
-#include "config_common.h"
 #define VENDOR_ID 0x7431
 #define PRODUCT_ID 0x4C4F
 #define DEVICE_VER 0x0001
@@ -18,7 +17,6 @@
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 8
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LED_MAP { 0, 1,  3, 4, 5, 6, 2, 7 }
 
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0

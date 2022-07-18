@@ -9,13 +9,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return TAPPING_TERM - 30;
     case RSEBSP:
       return TAPPING_TERM - 30;
-#ifdef TAP_DANCE_ENABLE
     case GCPTD:
       return TAPPING_TERM - 125;
     case DOCSTD:
     case QMKTD:
       return TAPPING_TERM + 70;
-#endif
     default:
       return TAPPING_TERM;
   }
@@ -99,8 +97,10 @@ void doc_dance(qk_tap_dance_state_t *state, void *user_data) {
 void dash_dance(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
     tap_code(KC_MINS);
+#ifdef UNICODE_COMMON_ENABLE
   else
     register_unicode(0x2014);
+#endif
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {

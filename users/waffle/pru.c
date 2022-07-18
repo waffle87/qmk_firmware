@@ -3,27 +3,27 @@
 #include "waffle.h"
 #ifdef RANDICT
 #include "users/ridingqwerty/dict.h"
-uint16_t rand_key;
+uint16_t word;
 bool randword_seed = false;
-bool random_word(void) {
-  bool rbool = rand() & 1;
-  return rbool;
-}
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!(process_record_keymap(keycode, record)
+#ifdef UNICODE_COMMON_ENABLE
+  && process_record_unicode(keycode, record)
+#endif
+  && true))
+    return false;
 #ifdef OLED_ENABLE
   if (record->event.pressed)
     add_keylog(keycode);
 #endif
   switch (keycode) {
     case CP_PSTE:
-      if (record->event.pressed) {
+      if (record->event.pressed)
         tap_code16(C(KC_C));
-      } else {
+      else
         tap_code16(C(KC_V));
-        tap_code(KC_ENT);
-      }
       break;
     case ROFL:
       if (record->event.pressed) {
@@ -37,7 +37,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     "         ----------/```");
       }
       break;
-    case MT(MOD_LSFT, KC_F23):
+    case SFEXM:
       if (record->tap.count > 0) {
         if (record->event.pressed)
           register_code16(KC_EXLM);
@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code16(KC_EXLM);
       }
       break;
-    case MT(MOD_RSFT, KC_F24):
+    case SFPRN:
       if (record->tap.count > 0) {
         if (record->event.pressed)
           register_code16(KC_RPRN);
@@ -53,25 +53,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code16(KC_RPRN);
       }
       break;
-#ifdef UNICODE_COMMON_ENABLE
-    case TABLE1:
-      if (record->event.pressed) { send_unicode_string("┬──┬ ノ( ゜-゜ノ)"); } break;
-    case TABLE2:
-      if (record->event.pressed) { send_unicode_string("(╯°□°)╯︵┻━┻"); } break;
-#endif
-#ifdef RANDICT
     case RWORD:
+#ifdef RANDICT
       if (randword_seed == false) {
         randword_seed = true;
         srand(timer_read32());
       }
-      rand_key = rand() % NUMBER_OF_WORDS;
+      word = rand() % NUMBER_OF_WORDS;
       if (record->event.pressed) {
-        send_string(dict[rand_key]);
+        send_string(dict[word]);
         tap_code(KC_SPC);
       }
-      break;
 #endif
+      break;
     case RST_EEP:
       if (record->event.pressed) {
         eeconfig_init();
@@ -79,5 +73,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
-  return process_record_keymap(keycode, record) && process_record_unicode(keycode, record);
+  return process_record_keymap(keycode, record);
 }
