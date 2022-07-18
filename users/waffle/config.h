@@ -16,14 +16,6 @@
 #undef MANUFACTURER
 #define MANUFACTURER waffles
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
-#    define ENABLE_RGB_MATRIX_EFFECTS
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#endif
-
 #ifdef OLED_ENABLE
 #    define OLED_TIMEOUT 600000
 #    define OLED_FONT_H "users/waffle/oledfont.h"

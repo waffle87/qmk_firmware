@@ -53,7 +53,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code16(KC_RPRN);
       }
       break;
-#ifdef UNICODEMAP_ENABLE
+#ifdef UNICODE_COMMON_ENABLE
     case TABLE1:
       if (record->event.pressed) { send_unicode_string("┬──┬ ノ( ゜-゜ノ)"); } break;
     case TABLE2:
@@ -79,5 +79,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
-  return true;
+  return process_record_keymap(keycode, record) && process_record_unicode(keycode, record);
 }

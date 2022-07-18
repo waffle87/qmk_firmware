@@ -2,10 +2,10 @@ BOOTMAGIC_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 NRKO_ENABLE = yes
 COMBO_ENABLE = yes 
-UNICODEMAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
-TAP_DANCE_ENABLE = yes
 TOP_SYMBOLS = yes
+TAP_DANCE_ENABLE = yes
+UNICODE_COMMON = yes
 MOUSEKEY_ENABLE = no
 MAGIC_ENABLE = no
 CONSOLE_ENABLE = no
@@ -25,6 +25,10 @@ ifeq ($(PLATFORM),CHIBIOS)
 	EXTRAFLAGS = -O3
 else
 	LTO_ENABLE = yes
+endif
+
+ifeq ($(strip $(UNICODE_COMMON)), yes)
+	SRC += unicode.c
 endif
 
 ifeq ($(strip $(RANDICT)), yes)

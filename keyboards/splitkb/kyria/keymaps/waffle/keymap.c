@@ -31,10 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,  ROFL,    KC_TRNS,
                                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
-                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, KC_TRNS,
-                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EE_CLR,  KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                      KC_NOMODE, KC_SCRIPT, KC_BLOCKS, KC_REGIONAL, QK_BOOT, KC_TRNS,
+                      KC_WIDE,   KC_AUSSIE, KC_ZALGO,  KC_SUPER,    EE_CLR,  KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_F6,     KC_F7,     KC_F8,     KC_F9,       KC_F10,  KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS
   )
 };
 

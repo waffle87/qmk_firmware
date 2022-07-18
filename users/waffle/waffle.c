@@ -21,6 +21,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+__attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable_noeeprom();
@@ -135,14 +136,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
   return false;
 }
-#endif
-
-#ifdef UNICODEMAP_ENABLE
-const uint32_t PROGMEM unicode_map[] = {
-  [GENSTAR] = 0x2605,
-  [DEGREE] = 0x00B0,
-  [HAM_SIK] = 0x262D
-};
 #endif
 
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
