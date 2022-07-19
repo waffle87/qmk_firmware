@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "waffle.h"
 #include "combos.h"
-#include "process_tap_dance.h"
-#include "quantum_keycodes.h"
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
