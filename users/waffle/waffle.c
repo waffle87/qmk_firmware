@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "waffle.h"
 #include "combos.h"
+#include "process_tap_dance.h"
+#include "quantum_keycodes.h"
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -9,8 +11,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return TAPPING_TERM - 30;
     case RSEBSP:
       return TAPPING_TERM - 30;
-    case GCPTD:
-      return TAPPING_TERM - 125;
     case DOCSTD:
     case QMKTD:
       return TAPPING_TERM + 70;
@@ -53,26 +53,18 @@ static td_tap_t xtap_state = {
   .state = NONE
 };
 
-void gclipst_finished(qk_tap_dance_state_t *state, void *user_data) {
+void alt_deg_0(qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
-    case SINGLE_TAP: register_code16(C(S(KC_V))); break;
-    case SINGLE_HOLD: register_code(KC_LGUI); break;
+    case SINGLE_TAP: register_code(KC_0); break;
+    case SINGLE_HOLD: register_mods(KC_LALT); break;
     case DOUBLE_TAP:
-    case NONE:
+#ifdef UNICODE_COMMON_ENABLE
+      register_unicode(0x00B0);
+#endif
       break;
+    case NONE: break;
   }
-}
-
-void gclipst_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (xtap_state.state) {
-    case SINGLE_TAP: unregister_code16(C(S(KC_V))); break;
-    case SINGLE_HOLD: unregister_code(KC_LGUI); break;
-    case DOUBLE_TAP:
-    case NONE:
-      break;
-  }
-  xtap_state.state = NONE;
 }
 
 void qmk_dance(qk_tap_dance_state_t *state, void *user_data) {
@@ -104,10 +96,10 @@ void dash_dance(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [GCLIPST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, gclipst_finished, gclipst_reset),
-  [QMK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, qmk_dance, NULL),
-  [DOCS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, doc_dance, NULL),
-  [EM_DASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_dance, NULL)
+  [ALTDEG0] = ACTION_TAP_DANCE_FN(alt_deg_0),
+  [QMK] = ACTION_TAP_DANCE_FN(qmk_dance),
+  [DOCS] = ACTION_TAP_DANCE_FN(doc_dance),
+  [EM_DASH] = ACTION_TAP_DANCE_FN(dash_dance)
 };
 #endif
 
