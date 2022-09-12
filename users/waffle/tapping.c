@@ -73,6 +73,13 @@ void bsls_pipe_dance(qk_tap_dance_state_t *state, void *user_data) {
     tap_code16(KC_PIPE);
 }
 
+void quot_dquo_dance(qk_tap_dance_state_t *state, void *user_data) {
+   if (state->count == 1)
+      tap_code(KC_QUOT);
+   else
+      tap_code16(KC_DQUO);
+}
+
 void zero_dance(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
     tap_code(KC_0);
@@ -111,6 +118,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CBRKT] = ACTION_TAP_DANCE_FN(curly_bracket_dance),
   [BRKT] = ACTION_TAP_DANCE_FN(bracket_dance),
   [BSLS_PIPE] = ACTION_TAP_DANCE_FN(bsls_pipe_dance),
+  [QUOT_DQUO] = ACTION_TAP_DANCE_FN(quot_dquo_dance),
   [DEG_0] = ACTION_TAP_DANCE_FN(zero_dance),
   [PLY_NXT_PRV] = ACTION_TAP_DANCE_FN(media_dance),
   [CLIPST_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, clipst_search_dance, td_reset)

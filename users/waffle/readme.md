@@ -6,13 +6,12 @@
 | trigger | output (single/double tap) |
 | :-----: | :------------------------: |
 | r + u   | enter                      |
-| g + h   | '                          |
 | v + m   | ?                          |
 | t + y   | :                          |
 | b + n   | _                          |
 | s + l   | +                          |
-| c + m   | "                          |
 | d + k   | =                          |
+| g + h   | ' / "                      |
 | w + o   | - / —                      |
 | e + r   | { / }                      |
 | u + i   | [ / ]                      |
@@ -21,7 +20,8 @@
 | f + g   | right click                |
 
 ### oled
-[font file](oledfont.h) can be viewed and modified at [qmk logo editor](https://joric.github.io/qle)
+[font file](oledfont.h) can be viewed and modified at [qmk logo editor](https://joric.github.io/qle)\
+all the boring animation code is stored in [oled.h](https://github.com/waffle87/qmk_firmware/blob/waffle_develop/users/waffle/oled.h)
 
 **animations:**\
 [felix the dog](https://github.com/waffle87/qmk_firmware/blob/waffle_develop/users/waffle/oled.c#L133-#L151)\
@@ -90,6 +90,7 @@ void render_time(void) {
 [crkbd](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/crkbd/keymaps/waffle)\
 [relic](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/relic/keymaps/waffle)\
 [kyria](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/splitkb/kyria/keymaps/waffle)\
+[ferris](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/ferris/keymaps/waffle)\
 [microdox](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/boardsource/microdox/keymaps/waffle)\
 [minidox](https://github.com/waffle87/qmk_firmware/tree/waffle_develop/keyboards/handwired/minidox/keymaps/waffle)\
 [leftover30](https://github.com/waffle87/qmk_firmware/blob/waffle_develop/keyboards/tominabox1/leftover30_arm/keymaps/waffle/keymap.c)\
