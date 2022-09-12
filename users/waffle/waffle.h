@@ -31,6 +31,7 @@ enum tapdances {
   CBRKT,
   BRKT,
   BSLS_PIPE,
+  QUOT_DQUO,
   DEG_0,
   PLY_NXT_PRV,
   CLIPST_RAISE
