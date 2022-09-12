@@ -1,8 +1,9 @@
 BOOTMAGIC_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 NRKO_ENABLE = yes
-COMBO_ENABLE = yes 
+COMBO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
+AUTOCORRECT_ENABLE = yes
 TOP_SYMBOLS = yes
 LTO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
@@ -25,6 +26,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+	UNICODE_ENABLE = no
 	SRC += unicode.c
 endif
 

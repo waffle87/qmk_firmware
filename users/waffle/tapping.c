@@ -7,20 +7,27 @@
 uint16_t word;
 #endif
 
+#define INTERCEPT_MOD_TAP(mod, keycode)             \
+case mod(keycode):                                  \
+  if (record->tap.count && record->event.pressed) { \
+    tap_code16(keycode);                            \
+    return false;                                   \
+  }                                                 \
+  break;                                            \
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LWRSPC:
-    case RSEBSP:
     case ESCLWR:
-    case PSTRSE:
-      return TAPPING_TERM - 60;
+      return TAPPING_TERM - 20;
     case LINKS:
     case PNP:
+    case TD(QUOT_DQUO):
     case TD(EM_DASH):
     case TD(CBRKT):
     case TD(BRKT):
     case TD(BSLS_PIPE):
-      return TAPPING_TERM + 40;
+      return TAPPING_TERM + 60;
     default:
       return TAPPING_TERM;
   }
@@ -73,6 +80,13 @@ void bsls_pipe_dance(qk_tap_dance_state_t *state, void *user_data) {
     tap_code16(KC_PIPE);
 }
 
+void quot_dquo_dance(qk_tap_dance_state_t *state, void *user_data) {
+   if (state->count == 1)
+      tap_code(KC_QUOT);
+   else
+      tap_code16(KC_DQUO);
+}
+
 void zero_dance(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
     tap_code(KC_0);
@@ -111,6 +125,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CBRKT] = ACTION_TAP_DANCE_FN(curly_bracket_dance),
   [BRKT] = ACTION_TAP_DANCE_FN(bracket_dance),
   [BSLS_PIPE] = ACTION_TAP_DANCE_FN(bsls_pipe_dance),
+  [QUOT_DQUO] = ACTION_TAP_DANCE_FN(quot_dquo_dance),
   [DEG_0] = ACTION_TAP_DANCE_FN(zero_dance),
   [PLY_NXT_PRV] = ACTION_TAP_DANCE_FN(media_dance),
   [CLIPST_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, clipst_search_dance, td_reset)
@@ -135,54 +150,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed)
         SEND_STRING("../");
       break;
-    case EXM_ALT:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_EXLM);
-        return false;
-      }
-      break;
-    case AT_GUI:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_AT);
-        return false;
-      }
-      break;
-    case HASH_CTL:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_HASH);
-        return false;
-      }
-      break;
-    case DLR_SFT:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_DLR);
-        return false;
-      }
-      break;
-    case AMPR_SFT:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_AMPR);
-        return false;
-      }
-      break;
-    case ASTR_CTL:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_ASTR);
-        return false;
-      }
-      break;
-    case LPRN_GUI:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_LPRN);
-        return false;
-      }
-      break;
-    case RPRN_ALT:
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_RPRN);
-        return false;
-      }
-      break;
+    INTERCEPT_MOD_TAP(LALT_T, KC_EXLM)
+    INTERCEPT_MOD_TAP(LGUI_T, KC_AT)
+    INTERCEPT_MOD_TAP(LCTL_T, KC_HASH)
+    INTERCEPT_MOD_TAP(LSFT_T, KC_DLR)
+    INTERCEPT_MOD_TAP(RSFT_T, KC_AMPR)
+    INTERCEPT_MOD_TAP(RCTL_T, KC_ASTR)
+    INTERCEPT_MOD_TAP(RGUI_T, KC_LPRN)
+    INTERCEPT_MOD_TAP(RALT_T, KC_RPRN)
     case RWORD:
 #ifdef RANDWORD
       word = rand() % NUMBER_OF_WORDS;

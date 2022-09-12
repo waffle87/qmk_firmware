@@ -1,2 +1,1 @@
-CUSTOM_MATRIX = lite
-SRC += matrix.c
+OLED_ENABLE = yes

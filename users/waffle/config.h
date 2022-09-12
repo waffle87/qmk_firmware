@@ -9,10 +9,11 @@
 #define LAYER_STATE_8BIT
 #define FORCE_NKRO
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-#define COMBO_TERM 50
+#define COMBO_TERM 40
 #define NO_ACTION_ONESHOT
-#define UNICODE_SELECTED_MODES UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 #define ENABLE_COMPILE_KEYCODE
+#define IGNORE_ATOMIC_BLOCK
 #ifdef RAW_ENABLE
 #undef VENDOR_ID
 #define VENDOR_ID 0x6A73
@@ -20,7 +21,7 @@
 #define PRODUCT_ID 0x6B62
 #endif
 #undef MANUFACTURER
-#define MANUFACTURER Waffles
+#define MANUFACTURER "Waffles"
 
 #ifdef OLED_ENABLE
 #    define OLED_FONT_H "users/waffle/oledfont.h"

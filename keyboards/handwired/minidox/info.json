@@ -1,15 +1,14 @@
 {
   "keyboard_name": "minidox",
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": ["F6", "F5", "F4", "B6", "B4"],
     "rows": ["F7", "B1", "B3", "B5"]
   },
   "usb": {
-    "vid": "0x9237",
-    "pid": "0x1972",
+    "vid": "0x6A73",
+    "pid": "0x6D64",
     "device_version": "1.0.0"
   },
   "split": {

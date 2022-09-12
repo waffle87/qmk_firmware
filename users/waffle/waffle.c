@@ -11,7 +11,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 #endif
 
-#ifdef OLED_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(OLED_ENABLE)
 #include "transactions.h"
 extern char keylog_str[5];
 void keylogger_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
@@ -19,7 +19,7 @@ void keylogger_sync(uint8_t initiator2target_buffer_size, const void *initiator2
     memcpy(&keylog_str, initiator2target_buffer, initiator2target_buffer_size);
 }
 
-void housekeeping_task_user(void) {
+__attribute__ ((weak)) void housekeeping_task_user(void) {
   if (is_keyboard_master()) {
     static uint32_t last_sync;
     bool needs_sync = false;
@@ -38,13 +38,13 @@ void housekeeping_task_user(void) {
 }
 #endif
 
-void matrix_io_delay(void) {
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
   __asm__ volatile("nop\nnop\nnop\n");
 }
 
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
-#ifdef OLED_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(OLED_ENABLE)
   transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_sync);
 #endif
 #ifdef RGBLIGHT_ENABLE
@@ -57,6 +57,10 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
   debug_enable = true;
   debug_matrix = true;
   debug_mouse = true;
+#endif
+#ifdef AUTOCORRECT_ENABLE
+  if (!autocorrect_is_enabled())
+    autocorrect_enable();
 #endif
 }
 
@@ -105,20 +109,22 @@ void trackball_hue(void) {
 #ifdef POINTING_DEVICE_ENABLE
 static bool scrolling = false;
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (get_highest_layer(layer_state)) {
+  switch (get_highest_layer(state)) {
     case _LOWER:
       scrolling = true;
-      pointing_device_set_cpi(64);
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
       pimoroni_trackball_set_cpi(0.1);
+#else
+      pointing_device_set_cpi(64);
 #endif
       break;
     default:
       if (scrolling) {
         scrolling = false;
-        pointing_device_set_cpi(1024);
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
         pimoroni_trackball_set_cpi(1);
+#else
+        pointing_device_set_cpi(1024);
 #endif
       }
       break;
