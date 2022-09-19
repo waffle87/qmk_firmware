@@ -69,43 +69,34 @@ enum unicode_mode {
 };
 #endif
 
-//---home row mods---
-#define A_ALT LALT_T(KC_A)
-#define S_GUI LGUI_T(KC_S)
-#define D_CTL LCTL_T(KC_D)
-#define F_SFT LSFT_T(KC_F)
-#define J_SFT RSFT_T(KC_J)
-#define K_CTL RCTL_T(KC_K)
-#define L_GUI RGUI_T(KC_L)
-#define CLN_ALT RALT_T(KC_SCLN)
-#define EXM_ALT LALT_T(KC_EXLM)
-#define AT_GUI LGUI_T(KC_AT)
-#define HASH_CTL LCTL_T(KC_HASH)
-#define DLR_SFT LSFT_T(KC_DLR)
-#define AMPR_SFT RSFT_T(KC_AMPR)
-#define ASTR_CTL RCTL_T(KC_ASTR)
-#define LPRN_GUI RGUI_T(KC_LPRN)
-#define RPRN_ALT RALT_T(KC_RPRN)
-//---tapdance---
+#define INTERCEPT_MOD_TAP(mod, keycode)             \
+case mod(keycode):                                  \
+  if (record->tap.count && record->event.pressed) { \
+    tap_code16(keycode);                            \
+    return false;                                   \
+  }                                                 \
+  break;                                            \
+
 #define DEG0 TD(DEG_0)
 #define LINKS TD(QMK_LINKS)
 #define PNP TD(PLY_NXT_PRV)
 #define PSTRSE TD(CLIPST_RAISE)
-//---misc---
 #define H_S UC(0x262D) //☭
 #define STAR UC(0x2605) //★
 #define ESCLWR LT(_LOWER, KC_ESC)
 #define LWRSPC LT(_LOWER, KC_SPC)
 #define RSEBSP LT(_RAISE, KC_BSPC)
+#define HRML(k1,k2,k3,k4) LALT_T(k1),LGUI_T(k2),LCTL_T(k3),LSFT_T(k4)
+#define HRMR(k1,k2,k3,k4) RSFT_T(k1),RCTL_T(k2),RGUI_T(k3),RALT_T(k4)
 
-#define ___BASE1___ KC_Q,  KC_W,  KC_E,  KC_R,  KC_T, KC_Y, KC_U,  KC_I,    KC_O,   KC_P
-#define ___BASE2___ A_ALT, S_GUI, D_CTL, F_SFT, KC_G, KC_H, J_SFT, K_CTL,   L_GUI,  CLN_ALT
-#define ___BASE3___ KC_Z,  KC_X,  KC_C,  KC_V,  KC_B, KC_N, KC_M,  KC_COMM, KC_DOT, KC_SLSH
+#define ___BASE1___ KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P
+#define ___BASE2___ HRML(KC_A, KC_S, KC_D, KC_F), KC_G, KC_H, HRMR(KC_J, KC_K, KC_L, KC_SCLN)
+#define ___BASE3___ KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
 #define ___BASE4___ UPDIR, ESCLWR, KC_SPC, KC_BSPC, PSTRSE, PNP
 
-#define ___LOWER1___ KC_1,    KC_2,   KC_3,     KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,     DEG0
-#define ___LOWER2___ EXM_ALT, AT_GUI, HASH_CTL, DLR_SFT, KC_PERC, KC_CIRC, AMPR_SFT, ASTR_CTL, LPRN_GUI, RPRN_ALT
-#define ___LOWER3___ KC_VOLD, KC_TAB, KC_CAPS,  KC_TILD, KC_GRV,  KC_LEFT, KC_DOWN,  KC_UP,    KC_RGHT,  KC_VOLU
+#define ___LOWER1___ KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, DEG0
+#define ___LOWER2___ HRML(KC_EXLM, KC_AT, KC_HASH, KC_DLR), KC_PERC, KC_CIRC, HRMR(KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN)
+#define ___LOWER3___ KC_VOLD, KC_TAB, KC_CAPS, KC_TILD, KC_GRV, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_VOLU
 #define ___LOWER4___ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
 #define ___RAISE1___ RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, KC_NOMODE, KC_SCRIPT, KC_BLOCKS, KC_REGIONAL, QK_MAKE
