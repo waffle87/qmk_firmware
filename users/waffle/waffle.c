@@ -105,7 +105,7 @@ void trackball_hue(void) {
 #ifdef POINTING_DEVICE_ENABLE
 static bool scrolling = false;
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (get_highest_layer(layer_state)) {
+  switch (get_highest_layer(state)) {
     case _LOWER:
       scrolling = true;
       pointing_device_set_cpi(64);
