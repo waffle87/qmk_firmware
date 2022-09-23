@@ -58,6 +58,10 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
   debug_matrix = true;
   debug_mouse = true;
 #endif
+#ifdef AUTOCORRECT_ENABLE
+  if (!autocorrect_is_enabled())
+    autocorrect_enable();
+#endif
 }
 
 #if !defined (ENCODER_MAP_ENABLE) && defined (ENCODER_ENABLE)
@@ -108,17 +112,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _LOWER:
       scrolling = true;
-      pointing_device_set_cpi(64);
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
       pimoroni_trackball_set_cpi(0.1);
+#else
+      pointing_device_set_cpi(64);
 #endif
       break;
     default:
       if (scrolling) {
         scrolling = false;
-        pointing_device_set_cpi(1024);
 #ifdef POINTING_DEVICE_DRIVER_pimoroni_trackball
         pimoroni_trackball_set_cpi(1);
+#else
+        pointing_device_set_cpi(1024);
 #endif
       }
       break;

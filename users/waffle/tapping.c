@@ -7,13 +7,21 @@
 uint16_t word;
 #endif
 
+#define INTERCEPT_MOD_TAP(mod, keycode)             \
+case mod(keycode):                                  \
+  if (record->tap.count && record->event.pressed) { \
+    tap_code16(keycode);                            \
+    return false;                                   \
+  }                                                 \
+  break;                                            \
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LWRSPC:
     case RSEBSP:
     case ESCLWR:
     case PSTRSE:
-      return TAPPING_TERM - 40;
+      return TAPPING_TERM - 20;
     case LINKS:
     case PNP:
     case TD(QUOT_DQUO):
@@ -21,7 +29,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case TD(CBRKT):
     case TD(BRKT):
     case TD(BSLS_PIPE):
-      return TAPPING_TERM + 40;
+      return TAPPING_TERM + 60;
     default:
       return TAPPING_TERM;
   }
