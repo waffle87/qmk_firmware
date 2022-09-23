@@ -69,14 +69,6 @@ enum unicode_mode {
 };
 #endif
 
-#define INTERCEPT_MOD_TAP(mod, keycode)             \
-case mod(keycode):                                  \
-  if (record->tap.count && record->event.pressed) { \
-    tap_code16(keycode);                            \
-    return false;                                   \
-  }                                                 \
-  break;                                            \
-
 #define DEG0 TD(DEG_0)
 #define LINKS TD(QMK_LINKS)
 #define PNP TD(PLY_NXT_PRV)
