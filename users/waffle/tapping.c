@@ -18,9 +18,7 @@ case mod(keycode):                                  \
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LWRSPC:
-    case RSEBSP:
     case ESCLWR:
-    case PSTRSE:
       return TAPPING_TERM - 20;
     case LINKS:
     case PNP:
