@@ -6,7 +6,7 @@
 extern uint8_t oled_buffer[OLED_MATRIX_SIZE];
 extern OLED_BLOCK_TYPE oled_dirty;
 void render_wpm(void);
-void maxtrix_scan_rate(void);
+void render_scan_rate(void);
 void render_time(void); //render time
 void qmk_logo(void);
 void render_keyboard(void); //small split keyboard
@@ -18,7 +18,7 @@ void render_keylogger(void); //keylogger data
 void keylogger_status(void); //keylogger prompt
 void felix(void); //felix the dog (90 or 270 rotation)
 void bongo(void); //solid-filled bongo cat (0 or 180 rotation)
-void wpm_graph(void); //wpm graph for 128x64 oled
+void wpm_graph(void); //wpm graph for 128x64 oled (memory intensive)
 void layer_anim(void);
 void oled_timer_reset(void);
 

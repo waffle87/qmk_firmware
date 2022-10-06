@@ -11,7 +11,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 #endif
 
-#ifdef OLED_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(OLED_ENABLE)
 #include "transactions.h"
 extern char keylog_str[5];
 void keylogger_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
@@ -44,7 +44,7 @@ void matrix_io_delay(void) {
 
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
-#ifdef OLED_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(OLED_ENABLE)
   transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_sync);
 #endif
 #ifdef RGBLIGHT_ENABLE

@@ -96,6 +96,7 @@ enum unicode_mode {
 #define ___RAISE3___ KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,     KC_F7,     KC_F8,     KC_F9,       KC_F10
 #define ___RAISE4___ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
+#define LAYOUT_stack_of_waffles(...) LAYOUT_stack(__VA_ARGS__)
 #define LAYOUT_waffle_3x6(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_waffle_3x5(...) LAYOUT_split_3x5_3(__VA_ARGS__)
 #define LAYOUT_waffle(...)     LAYOUT(__VA_ARGS__)
