@@ -1,6 +1,6 @@
 #pragma once
-#define VENDOR_ID 0x7431
-#define PRODUCT_ID 0x4C4F
+#define VENDOR_ID 0x6A73
+#define PRODUCT_ID 0x6C6F
 #define DEVICE_VER 0x0001
 #define PRODUCT "leftover"
 

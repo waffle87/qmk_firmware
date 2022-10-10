@@ -1,16 +1,23 @@
 {
-  "keyboard_name": "relic",
+  "keyboard_name": "vault35",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "diode_direction": "COL2ROW",
   "matrix_pins": {
-    "cols": ["D3", "D5", "B0", "F0", "F1", "F4", "F5", "F6", "C7", "C6", "B4"],
-    "rows": ["D7", "B2", "B6", "B5"]
+    "cols": ["B1", "D3", "F0", "F1", "F4", "F5", "F6", "F7", "C6", "B6", "B5"],
+    "rows": ["B4", "D4", "B0", "C7"]
+  },
+  "features": {
+    "rgblight": true
   },
   "usb": {
     "vid": "0x6A73",
-    "pid": "0x7263",
+    "pid": "0x3335",
     "device_version": "1.0.0"
+  },
+  "rgblight": {
+    "led_count": 10,
+    "pin": "E2"
   },
   "layouts": {
     "LAYOUT": {
@@ -25,7 +32,7 @@
         {"label": "i",    "matrix": [0, 7]},
         {"label": "o",    "matrix": [0, 8]},
         {"label": "p",    "matrix": [0, 9]},
-        {"label": "play", "matrix": [0, 10]},
+        {"label": "null", "matrix": [0, 10]},
         {"label": "a",    "matrix": [1, 0]},
         {"label": "s",    "matrix": [1, 1]},
         {"label": "d",    "matrix": [1, 2]},
@@ -46,12 +53,12 @@
         {"label": ",",    "matrix": [2, 7]},
         {"label": ".",    "matrix": [2, 8]},
         {"label": "/",    "matrix": [2, 9]},
-        {"label": "vol-", "matrix": [3, 0]},
-        {"label": "gui",  "matrix": [3, 1]},
-        {"label": "spc",  "matrix": [3, 4]},
-        {"label": "bspc", "matrix": [3, 6]},
-        {"label": "pste", "matrix": [3, 8]},
-        {"label": "vol+", "matrix": [3, 9]}
+        {"label": "../",  "matrix": [3, 1]},
+        {"label": "lwr",  "matrix": [3, 2]},
+        {"label": "spc",  "matrix": [3, 3]},
+        {"label": "bspc", "matrix": [3, 5]},
+        {"label": "rse",  "matrix": [3, 6]},
+        {"label": "pnp",  "matrix": [3, 7]}
       ]
     }
   }

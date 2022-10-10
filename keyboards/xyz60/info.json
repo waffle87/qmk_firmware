@@ -13,11 +13,11 @@
   "processor": "STM32F103",
   "usb": {
     "device_version": "0.0.1",
-    "pid": "0x106D",
-    "vid": "0x16D0"
+    "pid": "0x7879",
+    "vid": "0x6A73"
   },
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_60_ansi_tsangan": {
       "layout": [
         {"matrix": [0, 0]},
         {"matrix": [0, 1]},
@@ -32,7 +32,6 @@
         {"matrix": [0, 10]},
         {"matrix": [0, 11]},
         {"matrix": [0, 12]},
-        {"matrix": [0, 13]},
         {"matrix": [0, 14]},
         {"matrix": [1, 0]},
         {"matrix": [1, 1]},
@@ -72,14 +71,12 @@
         {"matrix": [3, 9]},
         {"matrix": [3, 10]},
         {"matrix": [3, 11]},
-        {"matrix": [3, 12]},
         {"matrix": [3, 13]},
         {"matrix": [4, 0]},
         {"matrix": [4, 1]},
         {"matrix": [4, 2]},
         {"matrix": [4, 6]},
         {"matrix": [4, 10]},
-        {"matrix": [4, 11]},
         {"matrix": [4, 12]},
         {"matrix": [4, 13]}
       ]

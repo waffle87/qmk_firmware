@@ -1,5 +1,5 @@
 #pragma once
-#define VENDOR_ID 0xAE7E
+#define VENDOR_ID 0x6A73
 #define PRODUCT_ID 0x7373
 #define DEVICE_VER 0x0001
 #define PRODUCT "smoothie split"
