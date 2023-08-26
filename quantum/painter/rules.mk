@@ -21,7 +21,8 @@ VALID_QUANTUM_PAINTER_DRIVERS := \
     sh1107_i2c \
     sh1107_spi \
     ld7032_i2c \
-    ld7032_spi
+    ld7032_spi \
+	ls0xx_spi
 
 #-------------------------------------------------------------------------------
 
@@ -231,6 +232,16 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/oled_panel/qp_oled_panel.c \
             $(DRIVER_PATH)/painter/ld7032/qp_ld7032.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ls0xx_spi)
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_LS0XX_ENABLE -DQUANTUM_PAINTER_LS0XX_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/mip_panel
+        SRC += \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx_panel.c \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx.c
 
     endif
 endef
