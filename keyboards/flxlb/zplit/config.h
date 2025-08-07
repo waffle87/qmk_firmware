@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SELECT_SOFT_SERIAL_SPEED 1
 // #define USE_I2C
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 500
@@ -35,6 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define NO_PRINT
 
 /* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+// #define NO_ACTION_LAYER
+// #define NO_ACTION_TAPPING
+// #define NO_ACTION_ONESHOT
