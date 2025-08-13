@@ -17,54 +17,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  { 24,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-  { 25,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-  { 26,     27,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-  { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
-}, {
-  // LED Index to Physical Position
-    { 224,  0 },
-    { 224,  9 },
-    { 224, 21 },
-    { 224, 33 },
-    { 224, 45 },
-    { 223, 51 },
-    { 206, 52 },
-    { 190, 52 },
-    { 172, 52 },
-    { 154, 57 },
-    { 136, 61 },
-    { 118, 63 },
-    { 101, 64 },
-    { 80 , 60 },
-    { 64 , 57 },
-    { 46 , 53 },
-    { 28 , 53 },
-    { 10 , 52 },
-    { 3  , 51 },
-    { 2  , 45 },
-    { 2  , 33 },
-    { 2  , 20 },
-    { 2  ,  9 },
-    { 0  ,  0 },
-    { 9  ,  3 },
-    { 6  , 14 },
-    { 4  , 26 },
-    { 21 , 27 }
-
-}, {
-  // LED Index to Flag
-  2, 2, 2, 2, 2, 2, 2, 2,
-  2, 2, 2, 2, 2, 2, 2, 2,
-  2, 2, 2, 2, 2, 2, 2, 2,
-  8, 8, 8, 8
-} };
-
-
 void keyboard_pre_init_kb(void) {
     rgb_matrix_set_flags(LED_FLAG_MODIFIER|LED_FLAG_UNDERGLOW|LED_FLAG_KEYLIGHT);
     keyboard_pre_init_user();
