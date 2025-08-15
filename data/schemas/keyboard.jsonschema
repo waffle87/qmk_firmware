@@ -579,8 +579,16 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "./definitions.jsonschema#/unsigned_int"},
-                            "y": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "x": {
+                                "type": "integer",
+                                "minimum": 0
+                                "maximum": 224
+                            },
+                            "y": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 64
+                            },
                             "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                         }
                     }
@@ -666,8 +674,16 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "./definitions.jsonschema#/unsigned_int"},
-                            "y": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "x": {
+                                "type": "integer",
+                                "minimum": 0
+                                "maximum": 224
+                            },
+                            "y": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 64
+                            },
                             "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                         }
                     }
